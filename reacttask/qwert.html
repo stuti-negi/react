@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <select id="arr1" onchange="subCat(1)"></select><br><br>  
+  <select id="arr2" onchange="subCat(2)"></select><br><br> 
+  <select id="arr3" onchange="subCat(3)"></select><br><br> 
+  <select id="arr4" onchange="subCat(4)"></select><br><br> 
+  <select id="arr5" onchange="subCat(5)"></select><br><br> 
+  <select id="arr6" onchange="subCat(6)"></select><br><br> 
+  <select id="arr7" onchange="subCat(7)"></select><br><br> 
+<p id="demo">Fetch a file to change this text.</p>
+
+<script>
+var ob={};
+var xa=[];
+var ob_arr=[];
+fetch('https://cors-anywhere.herokuapp.com/'+'https://www.google.com/basepages/producttype/taxonomy-with-ids.en-US.txt')
+.then((response) => response.text())
+.then(y =>{
+xa=y.split('\n');
+xa.shift();
+xa.pop();
+getdata();
+ob_arr=ob;
+// var x;
+// for(x in ob_arr){
+//   var y_2=(ob_arr[x]);
+//   console.log(x);
+//   for(var c in y_2){
+//     var y_3=(y_2[c]);
+//     console.log(c+"-");
+//     for(var c1 in y_3){
+//     console.log(c1+"--");}
+//   }
+// }
+console.log(ob_arr);
+});
+function getdata()
+{
+  for (var i = 0; i < xa.length; i++)
+ { 
+      var arra=xa[i].split(/[>]+/);
+
+      var len=arra.length;
+      if(len==1)
+                  { 
+                    var optn = arra[0]; 
+                    optn=optn.split(' - ');
+                    ob[optn[1]]={};
+                    var el = document.createElement("option"); 
+                    el.textContent = optn[1]; 
+                    el.value = optn[1]; 
+                    document.getElementById("arr1").appendChild(el);
+                    // ar.push(optn[1]);
+                    data=optn[1];
+                    }
+                  
+            else if(len==2){
+              var optn = arra[1];
+              ob[data][optn]={};
+              data1=optn;
+            }
+            else if(len==3){
+              var optn = arra[2];
+              ob[data][data1][optn]={};
+              data2=optn;
+            }
+            else if(len==4){
+              var optn = arra[3];
+              ob[data][data1][data2][optn]={};
+              data3=optn;
+            }
+            else if(len==5){
+              var optn = arra[4];
+              ob[data][data1][data2][data3][optn]={};
+              data4=optn;
+            }
+            else if(len==6){
+              var optn = arra[5];
+              ob[data][data1][data2][data3][data4][optn]={};
+              data5=optn;
+            }
+            else if(len==7)
+            {
+              var optn = arra[6];
+              ob[data][data1][data2][data3][data4][data5][optn]={};
+            }  
+          } 
+}
+
+// document.getElementbyID('demo').innerHTML=ob;
+function subCat(val)
+{
+ var vari= document.getElementById('arr'+val);
+ var value=vari.options[vari.selectedIndex].value;
+console.log(value);
+// var opt=ob_arr.map(value);
+// console.log(ob_arr);
+}
+
+
+</script>
+</body>
+</html>
